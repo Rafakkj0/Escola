@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: sans-serif;
+}
+.cabecalho{
+    background-color: rgb(19, 0, 127);
+    color: white;
+    display: flex;
+    align-items: center;
+    height: 70px;
+}
+header{
+    font-size: 23px;
+    font-weight: 600;
+    border-top: solid #fff 5px;
+    border-bottom: solid #fff 5px;
+    padding: 6px;
+    margin-left: 30px;
+    margin-right: 40px;
+}
+.nav{
+    margin-right: 40px;
+    font-weight: 700;
+    font-size: 20px;
+}
+.amarelo{
+    font-weight: 700;
+    background-color: yellow;
+    padding: 3px;
+}
