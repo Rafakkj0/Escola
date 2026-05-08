@@ -5,7 +5,6 @@
 // válido, a função deve retornar 0 indicando erro; caso contrário, deve retornar 1 indicando que a
 // separação foi realizada com sucesso
 #include <stdio.h>
-#include <windows.h>
 
 int separar_digitos(int num, int *dezena, int *unidade){
     if((num >= 10 && num <= 99)||(num <= -10 && num >= -99)){
@@ -17,8 +16,6 @@ int separar_digitos(int num, int *dezena, int *unidade){
 }
 
 int main(){
-    SetConsoleCP(65001);
-    SetConsoleOutputCP(65001);
 
     int entrada, dezena, unidade;
 

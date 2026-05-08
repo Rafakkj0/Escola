@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <windows.h>
 
 void trocar(int *a, int *b){
     int temp = *a;
@@ -8,8 +7,6 @@ void trocar(int *a, int *b){
 }
 
 int main(){
-    SetConsoleCP(65001);
-    SetConsoleOutputCP(65001);
 
     int x, y;
     scanf("%d %d", &x, &y);
