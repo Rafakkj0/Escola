@@ -1,0 +1,26 @@
+@import url(reset.css);
+
+body{
+    background-color: #2a715d;
+}
+
+a{
+    font-size: 50px;
+    color: #fff8a1;
+}
+.abelha{
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+}
+.abelha2{
+    display: flex;
+    align-items: flex-start;
+}
+.login{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 50px;
+    font-family: "DynaPuff";
+}
