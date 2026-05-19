@@ -1,1 +1,1 @@
-Treinamentos para fixação do conteúdo aprendido nas aulas da faculdade.
+Arquivos das aulas da faculdade, tanto atividade, quanto treinamento.
