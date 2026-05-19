@@ -4,97 +4,78 @@
 #include "mystring.h"
 
 #define QTD_MAX_PRODUTOS 100
+#define MAX_CARACTERES 50
 
-int pesquisaProdutos(char lista[],int qtdProdutos,char nome[]){
-    int achou=-1, i;
-    for(i=0; i < qtdProdutos && achou == 0; i++){
-        if(strcmp(nome, lista[i]) == 0) achou = i;
-    }
-    return achou;
+
+int apresentarMenu(){
+    int input;
+
+    printf("\n");
+    printf("------------------ Escolha uma opção ------------------\n");
+    printf("1 - Cadastrar produto         2 - Registrar venda      \n");
+    printf("3 - Consultar produto         4 - Listar produtos      \n");
+    printf("5 - Relatório de estoque      6 - Relatório de vendas  \n");
+    printf("                     0 - Sair                          \n");
+    do{
+        printf("> ");
+    }while(lerInt(&input) == 0 || input > 6 || input < 0);
+    return input;
 }
 
+void cadastrar(char rNome[][MAX_CARACTERES], float rEstoque[], int *qtdProdutos){
+    char nome[MAX_CARACTERES];
+    int i;
+
+    while(1){
+        printf("\nNome do produto: ");
+        if(lerString(nome, MAX_CARACTERES) == 1) break;
+    }
+
+    converteMaiuscula(nome);
+
+    for(i = 0; i < *qtdProdutos; i++){
+        if(strcmp(nome, rNome[i]) == 0){
+            printf("\nEste produto já está cadastrado.\n");
+            return;
+        }
+    }
+
+    strcpy(rNome[i], nome);
+
+    while(1){
+        printf("\nQuantidade em estoque: ");
+        if(lerFloat(&rEstoque[i]) == 0){
+            printf("\nResposta invalida, insira um número.\n");
+            continue;
+        }
+        if(rEstoque[i] <= 0){
+            printf("\nQuantidade invalida, tente novamente.\n");
+            continue;
+        }
+        break;
+    }
+
+    (*qtdProdutos)++;
+
+    printf("\nProduto cadastrado com sucesso!\n%s\t| Estoque: %.2f\n", rNome[i], rEstoque[i]);
+}
 
 int main(){
-    int selecao; // O que o usúario seleciona, no menu ou um produto
-    int qtdProdutos = 0; // quantidade de produtos cadastrados no sistema
-
-    char inputNome[50];                     // entrada do úsuario do nome do produto, antes de padronizar.
-    float inputQtd;                          // entrada do úsuario de quantidade de produtos, tanto para o estoque, quanto para a venda
-    char nomeProduto[QTD_MAX_PRODUTOS][50]; // Nome do produto no estoque
-    float qtdEstoque[QTD_MAX_PRODUTOS];     // Quantidade de produtos ainda disponivel no estoque
-    float qtdVendas[QTD_MAX_PRODUTOS];      // Quantidade de vendas realizadas
-    
-    do{
-        printf("1 - Cadastrar Produto\t2 - Registrar Venda\t0 - Sair\n");
-        printf("\n> ");
-        scanf("%d", &selecao);
-        limpaBuffer();
-
-        switch (selecao)
-        {
+    char rNome[QTD_MAX_PRODUTOS][MAX_CARACTERES]; // Nome dos produtos registrados
+    float rEstoque[QTD_MAX_PRODUTOS]; // Quantidade em estoque dos produtos registrados.
+    float rVendas[QTD_MAX_PRODUTOS]; // Quantidade vendido dos produtos registrados.
+    int qtdProdutos = 0; // Quantidade de produtos cadastrados.
+    int input;
+    while(1){
+        input = apresentarMenu();
+        switch(input){
         case 1:
-            // verificando se há espaço disposnivel para mais um produto.
-            if(qtdProdutos == QTD_MAX_PRODUTOS){
-                printf("\nQuantidade máxima de produtos atingida, não é possível adicionar um novo produto.\n");
-                break;
-            }
-
-            printf("\nForneça o nome do produto: ");
-            lerString(inputNome, 50);
-            convertMaiuscula(inputNome);
-
-            if(pesquisaProdutos(nomeProduto, QTD_MAX_PRODUTOS, inputNome) != -1){
-                printf("\nProduto já cadastrado.\n");
-                break;
-            }
-            
-            strcpy(nomeProduto[qtdProdutos], inputNome); // Registrando produto
-
-            while(1){
-                printf("\nForneça a quantidade em estoque: ");
-                scanf("%f", qtdEstoque[qtdProdutos]);
-                limpaBuffer();
-                if(qtdEstoque[qtdProdutos] < 0) printf("\n! - Quantidade invalida, tente novamente.\n");
-                else break;
-            }
-
-            qtdProdutos++;
+            cadastrar(rNome, rEstoque, &qtdProdutos);
             break;
-        case 2:
-            if(qtdProdutos>0){
-                printf("\nForneça o nome do produto: ");
-                lerString(inputNome, 50);
-                convertMaiuscula(inputNome);
-
-                selecao = pesquisaProdutos(nomeProduto, QTD_MAX_PRODUTOS, inputNome);
-
-                if(selecao == -1){
-                    printf("\nEste produto ainda não foi cadastrado. Verifique se o nome foi escrito corretamente.\n");
-                    break;
-                }
-
-                if(qtdEstoque[selecao] < 1){
-                    printf("\nNão há estoque deste produto.\n");
-                    break;
-                }
-
-                printf("\nForneça a quantidade que vai ser vendido: ");
-                scanf("%f", inputQtd);
-
-                if(inputQtd < qtdEstoque[selecao]){
-                    printf("\nNão é possivel processar a venda por falta de estoque. ( No estoque há apenas %f )\n", qtdEstoque[selecao]);
-                    break;
-                }
-
-                qtdEstoque[selecao] -= inputQtd;
-                qtdVendas[selecao] += inputQtd;
-                
-
-            }else printf("\nNenhum produto cadastrado.\n");
+        default:
             break;
         }
-
-    }while(selecao != 0);
-
+        if(input == 0) break;
+    }
     return 0;
 }
