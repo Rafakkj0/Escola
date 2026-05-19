@@ -15,7 +15,7 @@ int pesquisaProdutos(char lista[],int qtdProdutos,char nome[]){
 
 
 int main(){
-    int selecao; // resposta do usuario no menu
+    int selecao; // O que o usúario seleciona, no menu ou um produto
     int qtdProdutos = 0; // quantidade de produtos cadastrados no sistema
 
     char inputNome[50];                     // entrada do úsuario do nome do produto, antes de padronizar.
