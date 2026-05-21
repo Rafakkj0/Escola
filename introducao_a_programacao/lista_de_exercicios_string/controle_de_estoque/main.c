@@ -137,6 +137,13 @@ void listarProdutos(char nome[][MAX_CARACTERES], float estoque[], float vendas[]
     }
 }
 
+void relatorioEstoque(char nome[][MAX_CARACTERES], float estoque[], int *qtdProdutos){
+    printf("\nTotal de produtos cadastrados: %d\n", *qtdProdutos);
+    for(int i = 0; i < *qtdProdutos; i++){
+        
+    }
+}
+
 int main(){
     char rNome[QTD_MAX_PRODUTOS][MAX_CARACTERES]; // Nome dos produtos registrados
     float rEstoque[QTD_MAX_PRODUTOS] = {0}; // Quantidade em estoque dos produtos registrados.
