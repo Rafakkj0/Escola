@@ -108,6 +108,27 @@ void registrarVenda(char nome[][MAX_CARACTERES], float estoque[], float vendas[]
     printf("\nVenda registrada com sucesso!\n");
 }
 
+void consultarProduto(char nome[][MAX_CARACTERES], float estoque[], float vendas[], int *qtdProdutos){
+    char produto[MAX_CARACTERES];
+    int posicao;
+
+    while(1){
+        printf("\nNome do produto: ");
+        if(lerString(produto, MAX_CARACTERES) == 1) break;
+    }
+
+    converteMaiuscula(produto);
+
+    if((posicao = buscarProduto(produto, nome, qtdProdutos)) == -1){
+        printf("\nProduto não encontrado.\n");
+        return;
+    }
+
+    printf("\nProduto encontrado.\n");
+    printf("Nome: %s\nQuantidade em estoque: %.2f\nQuantidade vendida: %.2f\n", nome[posicao], estoque[posicao], vendas[posicao]);
+
+}
+
 int main(){
     char rNome[QTD_MAX_PRODUTOS][MAX_CARACTERES]; // Nome dos produtos registrados
     float rEstoque[QTD_MAX_PRODUTOS] = {0}; // Quantidade em estoque dos produtos registrados.
@@ -123,6 +144,8 @@ int main(){
         case 2:
             registrarVenda(rNome, rEstoque, rVendas, &qtdProdutos);
             break;
+        case 3:
+            consultarProduto(rNome, rEstoque, rVendas, &qtdProdutos);
         default:
             break;
         }
