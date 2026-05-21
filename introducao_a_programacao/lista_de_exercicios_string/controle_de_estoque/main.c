@@ -4,7 +4,7 @@
 #include "mystring.h"
 
 #define QTD_MAX_PRODUTOS 100
-#define MAX_CARACTERES 50
+#define MAX_CARACTERES 25
 
 
 int apresentarMenu(){
@@ -19,6 +19,7 @@ int apresentarMenu(){
     do{
         printf("> ");
     }while(lerInt(&input) == 0 || input > 6 || input < 0);
+    printf("-------------------------------------------------------\n");
     return input;
 }
 
@@ -129,6 +130,13 @@ void consultarProduto(char nome[][MAX_CARACTERES], float estoque[], float vendas
 
 }
 
+void listarProdutos(char nome[][MAX_CARACTERES], float estoque[], float vendas[], int *qtdProdutos){
+    printf("\nNome:                    |Estoque:   |Vendas:\n");
+    for(int i=0; i<*qtdProdutos; i++){
+        printf("%-25s|%-11.2f|%-11.2f\n", nome[i], estoque[i], vendas[i]);
+    }
+}
+
 int main(){
     char rNome[QTD_MAX_PRODUTOS][MAX_CARACTERES]; // Nome dos produtos registrados
     float rEstoque[QTD_MAX_PRODUTOS] = {0}; // Quantidade em estoque dos produtos registrados.
@@ -146,6 +154,9 @@ int main(){
             break;
         case 3:
             consultarProduto(rNome, rEstoque, rVendas, &qtdProdutos);
+            break;
+        case 4:
+            listarProdutos(rNome, rEstoque, rVendas, &qtdProdutos);
         default:
             break;
         }
