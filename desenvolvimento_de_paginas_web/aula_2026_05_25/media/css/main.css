@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root{ 
+    /* root é usaado para definir as variaveis globais */
+    --cor: rgb(195, 0, 255);
+    --tamBorda: 5px;
+    --bordaVerde: solid var(--tamBorda) green;
+    --tamQuadrado: 50px;
+    /* Caso --tamQuadrado não exista ele deverá ter 100px */
+
+    --tamColuna1: 50%;
+}
+
+#d1{
+    color: var(--cor, #000);
+    margin: 15px;
+    padding: 5px;
+    border-left: solid var(--tamBorda) var(--cor, #000);
+    border-bottom: solid var(--tamBorda) var(--cor, #000);
+}
+#d2{
+    border: var(--bordaVerde);
+}
+.quadrado{
+    background-color: var(--cor);
+    width: var(--tamQuadrado, 100px);
+    height: var(--tamQuadrado, 100px);
+    margin-left: calc(50% - var(--tamQuadrado, 100px)/2);
+}
+
+.tresColunas{
+    display: flex;
+    background-color: #000;
+    
+    height: 100px;
+}
+.c1{
+    background-color: blue;
+    width: var(--tamColuna1);
+}
+.c2{
+    background-color: green;
+    width: calc(var(--tamColuna1)/2);
+}
+.c3{
+    background-color: red;
+    width: calc(100% - var(--tamColuna1) - (var(--tamColuna1)/2));
+}
