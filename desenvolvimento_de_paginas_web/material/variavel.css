@@ -1,0 +1,220 @@
+/* ===================================================== */
+/*                  VARIÁVEIS NO CSS                      */
+/* ===================================================== */
+
+/*
+    Variáveis em CSS são chamadas de
+    "Custom Properties".
+
+    Elas servem para guardar valores
+    reutilizáveis como:
+    - Cores
+    - Tamanhos
+    - Fontes
+    - Margens
+    - Bordas
+*/
+
+/* ===================================================== */
+/*                 VARIÁVEIS GLOBAIS                      */
+/* ===================================================== */
+
+/*
+    :root representa o elemento raiz do documento.
+    Tudo que for declarado aqui pode ser usado
+    em qualquer lugar do CSS.
+*/
+
+:root{
+
+    /* Cor principal do site */
+    --cor-principal: #3498db;
+
+    /* Cor secundária */
+    --cor-secundaria: #2ecc71;
+
+    /* Cor do fundo */
+    --cor-fundo: #f5f5f5;
+
+    /* Cor do texto */
+    --cor-texto: #333333;
+
+    /* Tamanho padrão da fonte */
+    --fonte-padrao: 16px;
+
+    /* Espaçamento padrão */
+    --espacamento: 20px;
+
+    /* Borda arredondada */
+    --raio-borda: 10px;
+}
+
+/* ===================================================== */
+/*                  USANDO VARIÁVEIS                      */
+/* ===================================================== */
+
+body{
+
+    /*
+        var() é usada para acessar
+        uma variável.
+    */
+
+    background-color: var(--cor-fundo);
+
+    color: var(--cor-texto);
+
+    font-size: var(--fonte-padrao);
+}
+
+h1{
+
+    /* Utilizando a cor principal */
+    color: var(--cor-principal);
+}
+
+p{
+
+    /* Utilizando a cor secundária */
+    color: var(--cor-secundaria);
+}
+
+/* ===================================================== */
+/*              VARIÁVEIS EM OUTRAS PROPRIEDADES          */
+/* ===================================================== */
+
+.card{
+
+    background-color: white;
+
+    padding: var(--espacamento);
+
+    border-radius: var(--raio-borda);
+
+    border: 2px solid var(--cor-principal);
+}
+
+/* ===================================================== */
+/*                 VARIÁVEL LOCAL                         */
+/* ===================================================== */
+
+/*
+    Variáveis podem ser criadas
+    dentro de um seletor.
+
+    Nesse caso ela só existe
+    dentro desse elemento e seus filhos.
+*/
+
+.caixa{
+
+    --cor-caixa: orange;
+
+    background-color: var(--cor-caixa);
+}
+
+.caixa p{
+
+    color: var(--cor-caixa);
+}
+
+/* ===================================================== */
+/*              VALOR PADRÃO (FALLBACK)                   */
+/* ===================================================== */
+
+/*
+    Se a variável não existir,
+    o segundo valor será usado.
+*/
+
+.texto{
+
+    color: var(--cor-inexistente, red);
+}
+
+/* ===================================================== */
+/*                ALTERANDO VARIÁVEIS                     */
+/* ===================================================== */
+
+/*
+    Basta mudar o valor da variável
+    uma única vez.
+*/
+
+:root{
+    --cor-principal: purple;
+}
+
+/*
+    Todos os locais que usam
+    var(--cor-principal)
+    serão atualizados automaticamente.
+*/
+
+/* ===================================================== */
+/*                EXEMPLO PRÁTICO                         */
+/* ===================================================== */
+
+.botao{
+
+    background-color: var(--cor-principal);
+
+    color: white;
+
+    padding: 10px;
+
+    border: none;
+
+    border-radius: var(--raio-borda);
+}
+
+.botao:hover{
+
+    background-color: var(--cor-secundaria);
+}
+
+/* ===================================================== */
+/*                    RESUMÃO                             */
+/* ===================================================== */
+
+/*
+    CRIAR VARIÁVEL
+
+    --nome: valor;
+
+    EXEMPLO
+
+    --cor: blue;
+
+
+    USAR VARIÁVEL
+
+    var(--nome)
+
+    EXEMPLO
+
+    color: var(--cor);
+
+
+    VALOR PADRÃO
+
+    var(--nome, valor)
+
+    EXEMPLO
+
+    color: var(--cor, black);
+
+
+    VARIÁVEL GLOBAL
+
+    :root{
+        --cor: blue;
+    }
+
+
+    VARIÁVEL LOCAL
+
+    .classe{
+        --cor: red;
+    }
+*/
