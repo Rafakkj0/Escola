@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Prova 2</title>
+    <style>
+        /* 
+        Prova 2 Web
+        35 pontos
+        1 hora de duração
+
+        INSTRUÇÕES PARA A PROVA:
+        
+        1. Esse arquivo HTML não pode ser modificado.
+
+        2. Os estilos CSS definidos nesta tag <style> já estão valendo
+           para o CSS que você referenciar.
+
+        3. Você PRECISA usar a variável --width-menu (já declarada abaixo) 
+           para definir a largura do menu lateral do site, e consequentemente
+           calcular a largura da segunda coluna do layout.
+        
+        4. Ao terminar a prova, chame o professor para reconectar a Internet,
+           e envie apenas seu arquivo CSS para rafael.alencar@ifsudestemg.edu.br
+           O assunto do e-mail deve ser: Prova 2 Web - [Seu Nome Completo]
+        */
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        :root {
+            --width-menu: 280px;
+        }
+    </style>
+    <link rel="stylesheet" href="./static/styles/style.css">
+</head>
+
+<body>
+    <main>
+        <nav>
+            <h2>Menu</h2>
+
+            <section>
+                <header>Conversas</header>
+                <p>Criar nova</p>
+                <p>Conversa anônima</p>
+                <p>Buscar conversas</p>
+            </section>
+
+            <section>
+                <header>Recentes</header>
+                <p>Centralizar duas divs...</p>
+                <p>Esconder e mostrar o header...</p>
+                <p>Como linkar um arquivo .js ...</p>
+                <p>Criação de usuário e login...</p>
+            </section>
+        </nav>
+        <section>
+            <h2>Como posso te ajudar hoje?</h2>
+            <div>
+                <span>➕</span>
+                <input type="text" placeholder="Pergunte alguma coisa..." style="outline: none;">
+            </div>
+            <div>🖼️ Criar uma imagem</div>
+            <div>📚 Aprender algo</div>
+            <div>📝 Resumir um texto</div>
+
+            <div class="versao_modelo">
+                <div>ChatGPT 4.5</div>
+                <div>Conta PRO</div>
+            </div>
+        </section>
+    </main>
+</body>
+</body>
+
+</html>
