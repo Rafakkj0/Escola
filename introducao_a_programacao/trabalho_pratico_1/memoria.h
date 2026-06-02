@@ -59,6 +59,7 @@ int liberarProcesso(int memoria[], int tamanho, int pid);
  * A compactação move todos os processos para posições de valor baixo removendo os 0s entre eles.
  * @param memoria Vetor de memória.
  * @param tamanho Tamanho do vetor da memória.
+ * @return int Retorna 1 se a memória estiver compactada; Retorna 0 se ela não estiver compactada; Retorna 2 se não houver nada para compactar.
  */
 void compactarMemoria(int memoria[], int tamanho);
 
