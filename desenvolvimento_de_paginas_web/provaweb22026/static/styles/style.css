@@ -67,17 +67,10 @@ main>section>div:nth-child(2)>input{
     font-size: 18px;
     color: #3b3b3b;
 }
-main>section>div:nth-child(3){
-    border: #dddddd solid 1px;
-    border-radius: 20px;
-    padding: 11px;
-}
-main>section>div:nth-child(4){
-    border: #dddddd solid 1px;
-    border-radius: 20px;
-    padding: 11px;
-}
-main>section>div:nth-child(5){
+
+main>section>div:nth-child(3), main>section>div:nth-child(4), main>section>div:nth-child(5){
+    display: flex;
+    flex-direction: row;
     border: #dddddd solid 1px;
     border-radius: 20px;
     padding: 11px;
