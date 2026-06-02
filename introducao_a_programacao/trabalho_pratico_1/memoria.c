@@ -135,11 +135,67 @@ void compactarMemoria(int memoria[], int tamanho){
 }
 
 void relatorioMemoria(int memoria[], int tamanho){
-
+    int livre = contarBlocosVazios(memoria, tamanho);
+    printf("Total de blocos: %d\n", tamanho);
+    printf("Total de blocos vazios: %d\n", livre);
+    printf("Total de blocos ocupados: %d\n", tamanho - livre);
+    printf("Percentual de ocupação: %.2f%%\n", ((float)(tamanho-livre)/tamanho)*100);
+    printf("Maior bloco livre consecutivo: %d\n", maiorBlocoLivre(memoria, tamanho));
+    printf("Quantidade de fragmentos: %d\n", contarFragmentos(memoria, tamanho));
 }
 
 void relatorioEficiencia(int alocacoes[], int desperdicios[]){
+    if(alocacoes[0] + alocacoes[1] + alocacoes[2] == 0){
+        printf("Nenhuma alocacao foi realizada.\n");
+        return;
+    }
 
+    float media[3];
+
+    for(int i = 0; i < 3; i++){
+        if(alocacoes[i] > 0)
+            media[i] = (float)desperdicios[i] / alocacoes[i];
+        else
+            media[i] = 0;
+    }
+
+    printf("First Fit:\n");
+    printf("Alocacoes realizadas: %d\n", alocacoes[0]);
+    if(alocacoes[0]!=0){
+        printf("Desperdicio total: %d\n", desperdicios[0]);
+        printf("Desperdicio medio: %.2f\n\n", media[0]);
+    }
+
+    printf("Best Fit:\n");
+    printf("Alocacoes realizadas: %d\n", alocacoes[1]);
+    if(alocacoes[1]!=0){
+        printf("Desperdicio total: %d\n", desperdicios[1]);
+        printf("Desperdicio medio: %.2f\n\n", media[1]);
+    }
+
+    printf("Worst Fit:\n");
+    printf("Alocacoes realizadas: %d\n", alocacoes[2]);
+    if(alocacoes[2]!=0){
+        printf("Desperdicio total: %d\n", desperdicios[2]);
+        printf("Desperdicio medio: %.2f\n\n", media[2]);
+    }
+
+    int menor = -1;
+
+    for(int i = 0; i < 3; i++){
+        if(alocacoes[i] > 0){
+            if(menor == -1 || media[i] < media[menor]){
+                menor = i;
+            }
+        }
+    }
+
+    if(menor == 0)
+        printf("Menor desperdicio medio: First Fit\n");
+    else if(menor == 1)
+        printf("Menor desperdicio medio: Best Fit\n");
+    else
+        printf("Menor desperdicio medio: Worst Fit\n");
 }
 
 int maiorBlocoLivre(int memoria[], int tamanho){
@@ -158,8 +214,18 @@ int maiorBlocoLivre(int memoria[], int tamanho){
     return tamMaior;
 }
 
-int contarFragmentos(int memoria[], int tamanho){
 
+int contarFragmentos(int memoria[], int tamanho){
+    int cont = 0;
+    for(int i=0; i<tamanho; i++){
+        if(memoria[i]==0){
+            cont++;
+            while(i<tamanho && memoria[i] == 0){
+                i++;
+            }
+        }
+    }
+    return cont;
 }
 
 int buscarPID(int memoria[], int tamanho, int pid){
