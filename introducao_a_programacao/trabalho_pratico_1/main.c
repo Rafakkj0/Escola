@@ -5,8 +5,8 @@
 
 int main(){
     int memoria[TAM_MEMORIA] = {0};
-    int totalAlocacoes[3]; // Para contar quantas vezes cada estratégia foi usada com sucesso
-    int totalDesperdicios[3]; // Para somar o desperdício acumulado de cada estratégia
+    int totalAlocacoes[3] = {0}; // Para contar quantas vezes cada estratégia foi usada com sucesso
+    int totalDesperdicios[3] = {0}; // Para somar o desperdício acumulado de cada estratégia
     
     // Entradas do úsuario //
     int resposta;
@@ -62,7 +62,10 @@ int main(){
                     else if(quantidade == -2) printf("\n[!] Erro: Valor invalido. Informe um número inteiro maior que 0.\n");
                 }
                 resultado = alocarFirstFit(memoria, TAM_MEMORIA, pid, quantidade);
-                if(resultado>=0) totalDesperdicios[0] += resultado;
+                if(resultado>=0){
+                    totalDesperdicios[0] += resultado;
+                    totalAlocacoes[0]++;
+                }
                 else if(resultado == -1) printf("\n[!] Erro: Espaço insulficiente.\n");
                 else if(resultado == -2) printf("\n[!] Erro: Fragmentação externa.\n");
                 else if(resultado == -3) printf("\n[!] Erro: Está PID já existe.\n");
@@ -84,7 +87,10 @@ int main(){
                     else if(quantidade == -2) printf("\n[!] Erro: Valor invalido. Informe um número inteiro maior que 0.\n");
                 }
                 resultado = alocarBestFit(memoria, TAM_MEMORIA, pid, quantidade);
-                if(resultado>=0) totalDesperdicios[1] += resultado;
+                if(resultado>=0){
+                    totalDesperdicios[1] += resultado;
+                    totalAlocacoes[1]++;
+                }
                 else if(resultado == -1) printf("\n[!] Erro: Espaço insulficiente.\n");
                 else if(resultado == -2) printf("\n[!] Erro: Fragmentação externa.\n");
                 else if(resultado == -3) printf("\n[!] Erro: Está PID já existe.\n");
@@ -106,7 +112,10 @@ int main(){
                     else if(quantidade == -2) printf("\n[!] Erro: Valor invalido. Informe um número inteiro maior que 0.\n");
                 }
                 resultado = alocarWorstFit(memoria, TAM_MEMORIA, pid, quantidade);
-                if(resultado >=0) totalDesperdicios[2] += resultado;
+                if(resultado >=0){
+                    totalDesperdicios[2] += resultado;
+                    totalAlocacoes[2]++;
+                }
                 else if(resultado == -1) printf("\n[!] Erro: Espaço insulficiente.\n");
                 else if(resultado == -2) printf("\n[!] Erro: Fragmentação externa.\n");
                 else if(resultado == -3) printf("\n[!] Erro: Está PID já existe.\n");
@@ -127,11 +136,11 @@ int main(){
                 compactarMemoria(memoria, TAM_MEMORIA);
                 break;
             case 7:
-//////////////////////////// EM OBRA ///////////////////////////////////////////
+                printf("============= Relatório da memória ===========\n");
                 relatorioMemoria(memoria, TAM_MEMORIA);
                 break;
             case 8:
-//////////////////////////// EM OBRA ///////////////////////////////////////////
+                printf("======== Relatório de eficiência =============\n");
                 relatorioEficiencia(totalAlocacoes, totalDesperdicios);
                 break;
             default:
