@@ -1,0 +1,120 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+header{
+    background-color: #7400ff;
+    color: #fff;
+    padding: 10px;
+}
+header>h1{
+    display: flex;
+    justify-content: center;
+}
+.pesquisa>input{
+    background-color: #0000;
+    border: #0000 0;
+    color: #ffffff;
+    width: 100%;
+}
+.pesquisa{
+    border-bottom: #fff 2px solid;
+    margin: 0 10px;
+    padding: 0 10px 5px 10px;
+}
+.colorido{
+    background: linear-gradient(to right, #d70038, #FF8C00, #029f87);
+    padding: 50px;
+}
+.colorido>h1{
+    background-color: #fff;
+    color: #000;
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.avaliacao{
+    padding: 40px;
+}
+
+.avaliacao>.texto{
+    text-align: center;
+    font-size: 30px;
+    line-height: 40px;
+}
+
+.fundo_amarelo{
+    background-color: yellow;
+    padding: 3px;
+}
+
+.avaliacao>.usuario{
+    text-align: end;
+    font-style: italic;
+}
+
+nav{
+    background-color: #dddddd;
+    padding: 35px;
+}
+nav>p{
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+nav>div{
+    display: flex;
+    justify-content: space-between;
+}
+nav>div>div{
+    background: linear-gradient(to right, #d70038, #FF8C00);
+    padding: 10px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: #4d4d4d 1px 1px 1px;
+}
+
+footer{
+    background-color: #7400ff;
+    border-top: #36c9dd 20px solid;
+    color: #fff;
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 10px;
+}
+
+@media (orientation: landscape){
+    header{
+        display: flex;
+        justify-content: space-between;
+    }
+    header>h1{
+        border-right: #fff 9px solid;
+        padding-right: 5px;
+    }
+    .colorido{
+        padding: 90px;
+    }
+    .pesquisa{
+        padding: 10px 10px 0 10px;
+    }
+    .pesquisa>input{
+        width: 400px;
+    }
+    .colorido>h1{
+        width: 50%;
+    }
+    .avaliacao{
+        padding: 100px 40px;
+    }
+    nav{
+        display: none;
+    }
+    footer{
+        padding-bottom: 80px;
+    }
+}
