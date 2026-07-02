@@ -54,6 +54,11 @@ typedef struct{
     int codigoDepart;
 }funci;
 
+void limpaBuffer(){
+    char c;
+    while((c = getchar()) != '\n' && c != EOF);
+}
+
 int apresentarMenu(){
     printf("\n======= Menu ======\n");
     printf("1 - Cadastrar Departamento\n");
@@ -67,14 +72,10 @@ int apresentarMenu(){
         printf("\n> ");
         int entrada;
         scanf("%d", &entrada);
+        limpaBuffer();
         if(entrada >= 1 && entrada <= 7) return entrada;
         printf("Resposta inesperada, tente novamente.");
     }
-}
-
-void limpaBuffer(){
-    char c;
-    while((c = getchar()) != '\n' && c != EOF);
 }
 
 int pesquisaCodigo(depart departamento[], int qtd, int codigo){
@@ -140,8 +141,8 @@ void cadastrarFuncionario(funci funcionario[], int *qtd, depart departamento[], 
                 printf("Nome: ");
                 fgets(funcionario[*qtd].nome, TAM_MAX_NOME, stdin);
                 int tam = strlen(funcionario[*qtd].nome);
-                if(tam == TAM_MAX_NOME -1 && departamento[*qtd].nome[tam-1] != '\n') limpaBuffer();
-                else departamento[*qtd].nome[tam-1] = '\0';
+                if(tam == TAM_MAX_NOME -1 && funcionario[*qtd].nome[tam-1] != '\n') limpaBuffer();
+                else funcionario[*qtd].nome[tam-1] = '\0';
                 if(tam>1) break;
                 else printf("[!] O campo nome não pode ser vazio, tente novamente.\n");
             }
@@ -168,17 +169,95 @@ void cadastrarFuncionario(funci funcionario[], int *qtd, depart departamento[], 
 }
 
 
-void consultarFuncionario(funci funcionario[], int *qtd, depart departamento[]){
+void consultarFuncionario(funci funcionario[], int qtd, depart departamento[], int qtdDepartamentos){
     printf("\n====== Consultar Funcionarios ======\n");
-    printf("Primeira letra do nome do funcionário: ");
     char entrada;
-    scanf("%c", &entrada);
-    limpaBuffer();
-    for(int i = 0; i < *qtd; i++){
+    while(1){
+        printf("Primeira letra do nome do funcionário: ");
+        scanf("%c", &entrada);
+        limpaBuffer();
+        if(entrada != '\n') break;
+        printf("[!] Algo deu errado, tente novamente.\n");
+    }
+    int achou = 0;
+    for(int i = 0; i < qtd; i++){
         if(entrada == funcionario[i].nome[0]){
-            
+            achou = 1;
+            printf("\nMatrícula: %d\n", funcionario[i].matricula);
+            printf("Nome: %s\n", funcionario[i].nome);
+            printf("Departamento: %s\n", departamento[pesquisaCodigo(departamento, qtdDepartamentos, funcionario[i].codigoDepart)].nome);
         }
     }
+    if(achou == 0) printf("[!] Nenhum funcionário encontrado.\n");
+}
+
+void consultarDepartamento(depart departamento[], int qtdDepartamentos, funci funcionario[], int qtdFuncionarios){
+    printf("\n====== Consultar Departamento ======\n");
+    if(qtdDepartamentos > 0){
+        if(qtdFuncionarios > 0){
+            int entrada;
+            printf("Código do departamento: ");
+            scanf("%d", &entrada);
+            limpaBuffer();
+            int posDepartamento = pesquisaCodigo(departamento, qtdDepartamentos, entrada);
+            if(posDepartamento != -1){
+                int achou = 0;
+                for(int i = 0; i < qtdFuncionarios; i++){
+                    if(funcionario[i].codigoDepart == entrada){
+                        achou = 1;
+                        printf("\nMatrícula: %d\n", funcionario[i].matricula);
+                        printf("Nome: %s\n", funcionario[i].nome);
+                        printf("Salário: R$ %.2f\n", funcionario[i].salario);
+                    }
+                }
+                if(achou == 0) printf("[!] Nenhum funcionário cadastrado neste departamento.\n");
+            }
+            else printf("[!] Departamento não encontrado.\n");
+        }
+        else printf("[!] Nenhum funcionário cadastrado.\n");
+    }
+    else printf("[!] Nenhum departamento cadastrado.\n");
+}
+
+void removerFuncionario(funci funcionario[], int *qtd){
+    printf("\n====== Remover Funcionário ======\n");
+    if(*qtd > 0){
+        int entrada;
+        printf("Matrícula: ");
+        scanf("%d", &entrada);
+        limpaBuffer();
+        int posFuncionario = pesquisaMatricula(funcionario, *qtd, entrada);
+        if(posFuncionario != -1){
+            funcionario[posFuncionario] = funcionario[*qtd-1];
+            (*qtd)--;
+            printf("\nFuncionario excluído com sucesso.\n");
+        }
+        else printf("[!] Funcionário não encontrado.\n");
+    }
+    else printf("[!] Nenhum funcionário cadastrado.\n");
+}
+
+void removerDepartamento(depart departamento[], int *qtdDepartamentos, funci funcionario[], int *qtdFuncionarios){
+    printf("\n====== Remover Departamento ======\n");
+    if(*qtdDepartamentos > 0){
+        int entrada;
+        printf("Código: ");
+        scanf("%d", &entrada);
+        limpaBuffer();
+        int posDepartamento = pesquisaCodigo(departamento, *qtdDepartamentos, entrada);
+        if(posDepartamento != -1){
+            departamento[posDepartamento] = departamento[*qtdDepartamentos-1];
+            (*qtdDepartamentos)--;
+            for(int i = 0; i < *qtdFuncionarios; i++){
+                if(funcionario[i].codigoDepart == entrada){
+                    funcionario[i] = funcionario[*qtdFuncionarios];
+                    (*qtdFuncionarios)--;
+                }
+            }
+        }
+        else printf("[!] Departamento não encontrado.\n");
+    }
+    else printf("[!] Nenhum departamento cadastrado.\n");
 }
 
 int main(){
@@ -199,12 +278,16 @@ int main(){
                 cadastrarFuncionario(funcionario, &qtdFuncionarios, departamento, &qtdDepartamentos);
                 break;
             case 3:
+                consultarFuncionario(funcionario, qtdFuncionarios, departamento, qtdDepartamentos);
                 break;
             case 4:
+                consultarDepartamento(departamento, qtdDepartamentos, funcionario, qtdFuncionarios);
                 break;
             case 5:
+            removerFuncionario(funcionario, &qtdFuncionarios);
                 break;
             case 6:
+            removerDepartamento(departamento, &qtdDepartamentos, funcionario, &qtdFuncionarios);
                 break;
         }
     }
