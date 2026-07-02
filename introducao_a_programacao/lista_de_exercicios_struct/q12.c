@@ -284,10 +284,10 @@ int main(){
                 consultarDepartamento(departamento, qtdDepartamentos, funcionario, qtdFuncionarios);
                 break;
             case 5:
-            removerFuncionario(funcionario, &qtdFuncionarios);
+                removerFuncionario(funcionario, &qtdFuncionarios);
                 break;
             case 6:
-            removerDepartamento(departamento, &qtdDepartamentos, funcionario, &qtdFuncionarios);
+                removerDepartamento(departamento, &qtdDepartamentos, funcionario, &qtdFuncionarios);
                 break;
         }
     }
